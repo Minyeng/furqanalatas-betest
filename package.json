@@ -4,8 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "my-custom-start": "PROD=true node index.js"
+    "start": "npm app.js"
   },
   "author": "",
   "license": "ISC",
