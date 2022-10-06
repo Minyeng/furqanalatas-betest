@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const redis = require('redis')
 
 const client = redis.createClient({
-    url: process.env.REDIS_URL
+    url: process.env.REDIS_URL || 'redis://default:8nH7cwOn9BEu6yhwuEF5guY7UxpN6pmK@redis-16575.c252.ap-southeast-1-1.ec2.cloud.redislabs.com:16575/#11254493'
 });
 
 const createUser = async (req, res) => {
@@ -15,7 +15,7 @@ const createUser = async (req, res) => {
     })
     try {
         const saveUser = await user.save()
-        const token = jwt.sign({ _id: saveUser._id }, process.env.TOKENIUM)
+        const token = jwt.sign({ _id: saveUser._id }, process.env.TOKENIUM || 'SOMERANDOMTOKEN')
         res.status(200).header('tokenium', token).send(token)
     } catch(err) {
         res.status(400).send(err)
