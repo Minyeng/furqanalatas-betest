@@ -15,7 +15,7 @@ mongoose.connect(
 app.use(express.json())
 app.use('/api/user/', userRoute);
 app.get('/', (req, res) => {
-    res.send('Welcome!')
+    res.send('Hello world!')
 })
 
 app.listen(process.env.PORT || 5000, () => {
