@@ -2,9 +2,9 @@ const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const redis = require('redis')
 
-const client = redis.createClient({
-    url: process.env.REDIS_URL || 'redis://default:8nH7cwOn9BEu6yhwuEF5guY7UxpN6pmK@redis-16575.c252.ap-southeast-1-1.ec2.cloud.redislabs.com:16575/#11254493'
-});
+// const client = redis.createClient({
+//     url: process.env.REDIS_URL || 'redis://default:8nH7cwOn9BEu6yhwuEF5guY7UxpN6pmK@redis-16575.c252.ap-southeast-1-1.ec2.cloud.redislabs.com:16575/#11254493'
+// });
 
 const createUser = async (req, res) => {
     const user = new User({
@@ -24,21 +24,21 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
-        const key = req.originalUrl
+        // const key = req.originalUrl
 
-        client.on('error', (err) => console.log('Redis Client Error', err));
-        await client.connect();
+        // client.on('error', (err) => console.log('Redis Client Error', err));
+        // await client.connect();
         
-        const data = await client.get(key)
-        if(data !== null) {
-            client.quit()
-            res.status(200).send(JSON.parse(data))
-        }
+        // const data = await client.get(key)
+        // if(data !== null) {
+        //     client.quit()
+        //     res.status(200).send(JSON.parse(data))
+        // }
 
         const users = await User.find();
-        client.setEx(key, 450, JSON.stringify(users))
+        // client.setEx(key, 450, JSON.stringify(users))
 
-        client.quit()
+        // client.quit()
         res.status(200).send(users);
     } catch(err) {
         res.status(400).send(err)
@@ -47,21 +47,21 @@ const getUsers = async (req, res) => {
 
 const getUserByAccountNumber =  async (req, res) => {
     try {
-        const key = req.originalUrl
+        // const key = req.originalUrl
 
-        client.on('error', (err) => console.log('Redis Client Error', err));
-        await client.connect();
+        // client.on('error', (err) => console.log('Redis Client Error', err));
+        // await client.connect();
         
-        const data = await client.get(key)
-        if(data !== null) {
-            client.quit()
-            res.status(200).send(JSON.parse(data))
-        }
+        // const data = await client.get(key)
+        // if(data !== null) {
+        //     client.quit()
+        //     res.status(200).send(JSON.parse(data))
+        // }
 
         const user = await User.findOne({ accountNumber: req.params.accountNumber })
-        client.setEx(key, 450, JSON.stringify(user))
+        // client.setEx(key, 450, JSON.stringify(user))
 
-        client.quit()
+        // client.quit()
         res.status(200).send(user)
     } catch(err) {
         res.status(400).send(err)
@@ -70,21 +70,21 @@ const getUserByAccountNumber =  async (req, res) => {
 
 const getUserByIdentityNumber = async (req, res) => {
     try {
-        const key = req.originalUrl
+        // const key = req.originalUrl
 
-        client.on('error', (err) => console.log('Redis Client Error', err));
-        await client.connect();
+        // client.on('error', (err) => console.log('Redis Client Error', err));
+        // await client.connect();
         
-        const data = await client.get(key)
-        if(data !== null) {
-            client.quit()
-            res.status(200).send(JSON.parse(data))
-        }
+        // const data = await client.get(key)
+        // if(data !== null) {
+        //     client.quit()
+        //     res.status(200).send(JSON.parse(data))
+        // }
         
         const user = await User.findOne({ identityNumber: req.params.identityNumber })
-        client.setEx(key, 450, JSON.stringify(user))
+        // client.setEx(key, 450, JSON.stringify(user))
 
-        client.quit()
+        // client.quit()
         res.status(200).send(user)
     } catch(err) {
         res.status(400).send(err)
